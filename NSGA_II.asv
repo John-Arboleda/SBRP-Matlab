@@ -8,11 +8,15 @@ tic
 %Cálculo del costo por ruta por inidividuo
 [evaluatedInitPop] = NSGA_Evaluate(initPop, N_indivs, Buses);
 
-%Ránkin
+%Ránking de los índividuos de menor costo
 [rankedInitPop] = NSGA_Rank(evaluatedInitPop);
 
+for n = 1:N_gen
+    [Pairs] = NSGA_Tournament(1:N_indivs, N_indivs/2);
 
-
+    
+    
+end
 
 toc
 end

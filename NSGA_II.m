@@ -11,8 +11,12 @@ tic
 %Ránking de los índividuos de menor costo
 [rankedInitPop] = NSGA_Rank(evaluatedInitPop);
 
+for n = 1:N_gen
+    Pairs = NSGA_Tournament(1:N_indivs, N_indivs/2);
 
-
+    
+    
+end
 
 toc
 end
