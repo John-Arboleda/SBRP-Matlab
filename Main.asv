@@ -1,0 +1,16 @@
+clc
+clear
+
+%Número de ge
+N_gen = 8;
+N_indivs = 20;
+Buses = 12;
+Capacity = 40;
+pX = 1;
+pM = 0.1;
+
+
+
+[individuo_elite, Obj] = ...
+   NSGA_II(N_gen, N_indivs, Buses, Capacity, pX, pM);
+

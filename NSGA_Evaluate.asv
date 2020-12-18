@@ -1,0 +1,34 @@
+%Mejora el ruteo de la asignación de la generación inicial
+%Cálcula el costo de la ruta
+
+%Input
+%InitPop(struct) = Población inicial
+%N_indivs(integer) = Número de inidividuos
+%Buses(integer) = Número de buses
+
+%
+
+function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
+    %Inicializa población evaluada
+    evaluatedInitPop = InitPop;
+
+    for j = 1:N_indivs
+        evaluatedInitPop(j).Individuo = totalRouting(evaluatedInitPop(j).Individuo, Buses);
+
+        evaluatedInitPop(j).costoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
+    end
+
+    
+    function newRouting = totalRouting(aIndiv, nBuses)
+        for m = 1:nBuses
+            [aIndiv(m).Ruta, aIndiv(m).Costo] = Routing(aIndiv(m).Ruta,m,nBuses,20);
+        end
+        newRouting = aIndiv;
+    end
+
+    function totalCost = costIndiv(aIndiv, nBuses)
+        for r = 1:nBuses
+            totalCost(r,1) = costoRuta(aIndiv(r).Ruta,r,nBuses);
+        end
+    end
+end
