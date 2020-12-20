@@ -27,7 +27,7 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
         %Cálcula costo de ruta
         %Retorna individuo actualizado con costos y ruteo
         for m = 1:nBuses
-            [aIndiv(m).Ruta, aIndiv(m).Costo] = Routing(aIndiv(m).Ruta,m,nBuses,20);
+            [aIndiv(m).Ruta, aIndiv(m).Costo] = Routing(aIndiv(m).Ruta,m,nBuses,10);
         end
         newRouting = aIndiv;
     end

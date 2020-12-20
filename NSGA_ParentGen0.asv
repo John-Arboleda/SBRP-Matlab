@@ -5,7 +5,7 @@
 
 %Returns
 %initPop(struct) = Una estructura con la población inicial y los buses de cada
-    %inidividuo respetando restricción de capacidad
+%inidividuo respetando restricción de capacidad
 
 function [initPop] = NSGA_ParentGen0(N_indivs, Buses, Capacity)
 
@@ -26,7 +26,7 @@ nodoPorAsignar = Problem(:,[1,4]);
 %Asigna nodos a buses de forma aleatoria
 for j = 1:N_indivs %Para cada inidividuo
     %Organiza los nodos del problema en un array aleatorio
-    nodoPorAsignar = nodoPorAsignar(randperm(length(Problem)),:);
+    nodoPorAsignar = nodoPorAsignar(randperm(length(Problem)));
     initPop(j).Individuo ...
         = chooseNodes(initPop(j).Individuo, nodoPorAsignar, Buses, Capacity);
     
@@ -40,8 +40,19 @@ for j = 1:N_indivs %Para cada inidividuo
 %         end
 %     end
     %Inicializa costo total de la ruta
-    %initPop(j).costoTotal;
+    initPop(j).costoTotal;
 end
 
+    function IndivNode = chooseNodes(Indiv, arrN, Buses, Capacity)
+        for i = 1:length(arrN) %Para cada nodo del problema
+            if arrN(i) ~= 1 %diferente del depósito
+                demNodo = arrN(i,2); %Buscar la demanda del nodo
+                %Aleatoriamente elege un bus que tenga capacidad disponible
+                busElegido = chooseBus(Indiv, Buses, demNodo, Capacity);
+                %Asigne el nodo al bus elegido
+                IndivNode = asignarNodo(Indiv,busElegido,arrN(i),demNodo);
+            end
+        end
+    end
         
 end
