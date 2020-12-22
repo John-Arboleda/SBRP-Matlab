@@ -13,13 +13,13 @@ function IndivNode = chooseNodes(Indiv, arrN, Buses, Capacity)
         [busElegido, cupo] = chooseBus(Indiv, Buses, Capacity);
         %if nodos_x_asignar(i) ~= 1 %diferente del depósito
         [nodeMin indMin] = min(dB(busElegido, nodos_x_asignar(:,1)));
+        %(indMin);
         demNodo = nodos_x_asignar(indMin,2); %Buscar la demanda del nodo
         %Aleatoriamente elege un bus que tenga capacidad disponible
         %[busElegido, cupo] = chooseBus(Indiv, Buses, demNodo, Capacity);
-        if demNodo <= cupo
-            %Asigne el nodo al bus elegido
+        %Asigne el nodo al bus elegido
+        if demNodo > 
             Indiv = asignarNodo(Indiv,busElegido,nodos_x_asignar(indMin),demNodo);
-            nodos_x_asignar(indMin,:) = [];
         end
     end
     IndivNode = Indiv;

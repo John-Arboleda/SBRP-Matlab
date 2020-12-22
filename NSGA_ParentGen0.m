@@ -21,12 +21,12 @@ end
 %Inicializa estructura de la población inicial
 initPop = makeEmptyPop(N_indivs, Buses);
 
-nodoPorAsignar = Problem(:,[1,4]);
+nodoPorAsignar = Problem(2:end,[1,4]);
 
 %Asigna nodos a buses de forma aleatoria
 for j = 1:N_indivs %Para cada inidividuo
     %Organiza los nodos del problema en un array aleatorio
-    nodoPorAsignar = nodoPorAsignar(randperm(length(Problem)),:);
+    %nodoPorAsignar = nodoPorAsignar(randperm(length(nodoPorAsignar)),:);
     initPop(j).Individuo ...
         = chooseNodes(initPop(j).Individuo, nodoPorAsignar, Buses, Capacity);
     
