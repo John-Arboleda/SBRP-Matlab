@@ -12,14 +12,15 @@ tic
 [rankedPop] = NSGA_Rank(evaluatedInitPop);
 
 fprintf( 'Parent generation 0\n');
+
 toc
 
 for n = 1:N_gen
-    
+
     [Pairs] = NSGA_Tournament(1:N_indivs, N_indivs/2);
 
-    [childPop] = NSGA_SBX(rankedPop, Pairs, Buses, N_indivs, Capacity);
-    
+    [childPop] = NSGA_SBX(rankedPop, Pairs, Buses, N_indivs, Capacity, n);
+  
     [evaluatedChildPop] = NSGA_Evaluate(childPop, N_indivs, Buses);
     
     [rankedParentChild] = NSGA_Rank([rankedPop, evaluatedChildPop]);
@@ -32,7 +33,7 @@ for n = 1:N_gen
 end
 
 individuo_elite = rankedPop(1).Individuo;
-Obj = rankedPop(1).costoTotal
+Obj = rankedPop(1).CostoTotal
 
 toc
 end

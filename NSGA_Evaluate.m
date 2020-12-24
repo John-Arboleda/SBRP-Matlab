@@ -18,23 +18,23 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
         %Mejora el ruteo y calcula costo de ruta
         evaluatedInitPop(j).Individuo = totalRouting(evaluatedInitPop(j).Individuo, Buses);
         %Costo de cada individuo
-        evaluatedInitPop(j).costoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
+        evaluatedInitPop(j).CostoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
+        %Variación distancia de recorrido
+        evaluatedInitPop(j).VarDistance = std([evaluatedInitPop(j).Individuo.Costo]);
+        %Variación número de estudiantes
+        evaluatedInitPop(j).VarStudents = std([evaluatedInitPop(j).Individuo.Ocupacion]);
+        %Variación número de paradas
+        evaluatedInitPop(j).VarNodes = std(cellfun(@length, {evaluatedInitPop(j).Individuo.Ruta}));
     end
-
     
     function newRouting = totalRouting(aIndiv, nBuses)
         %Mejora el ruteo de cada bus de un individuo
         %Cálcula costo de ruta
         %Retorna individuo actualizado con costos y ruteo
         for m = 1:nBuses
-            [aIndiv(m).Ruta, aIndiv(m).Costo] = Routing(aIndiv(m).Ruta,m,nBuses,5);
+            [aIndiv(m).Ruta, aIndiv(m).Costo] = Routing(aIndiv(m).Ruta,m,nBuses);
         end
         newRouting = aIndiv;
     end
 
-%     function totalCost = costIndiv(aIndiv, nBuses)
-%         for r = 1:nBuses
-%             totalCost(r,1) = costoRuta(aIndiv(r).Ruta,r,nBuses);
-%         end
-%     end
 end

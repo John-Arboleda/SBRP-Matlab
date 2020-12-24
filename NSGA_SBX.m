@@ -1,10 +1,16 @@
 %load sbx_prueba1.mat
 
-function [childPop] = NSGA_SBX(rankedPop, Pairs, Buses, N_indivs, Capacity)
+function [childPop] = NSGA_SBX(rankedPop, Pairs, Buses, N_indivs, Capacity, N_gen)
 
 %Pairs = [1 2; 3 4; 5 6; 7 8];
 
 childPop = makeEmptyPop(N_indivs, Buses);
+
+if mod(N_gen, 2) == 0 
+    sec = (Buses/2+1):Buses;
+else
+    sec = 1:Buses/2;
+end
 
 allNodes = vertcat(rankedPop(1).Individuo.Ruta);
 
@@ -15,7 +21,7 @@ for c = 1:length(Pairs)
    child_2_nodes = vertcat(child_2.Ruta);
    missing_child_1 = setdiff(allNodes, unique(child_1_nodes, 'rows'), 'rows');
    missing_child_2 = setdiff(allNodes, unique(child_2_nodes, 'rows'), 'rows');
-   for b = 1:Buses/2
+   for b = sec
        child_1(b).Ruta = deleteNodes(child_1(b).Ruta, missing_child_2);
        child_1(b).Ocupacion = sum(child_1(b).Ruta(:,2));
        child_1(b).Costo = 0;
