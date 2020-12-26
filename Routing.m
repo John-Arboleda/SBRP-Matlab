@@ -10,9 +10,11 @@
 %Return
 %minRoute(array) = Nodos reordenados con su demanda
 %cost(double) = Costo de la ruta
-function [minRoute, cost] = Routing(Route,aBus,nBuses)
+function [minRoute] = Routing(Route,aBus,nBuses)
 
 matPer = {Route}; %Inicializa matrices de permutaciones
+
+
 
 % for z = 1:iter
 %     %Genera iter permutaciones aleatorias de la ruta
@@ -21,7 +23,7 @@ matPer = {Route}; %Inicializa matrices de permutaciones
 %     matPer{z+1,1} = newRoute;
 % end
 
-fCost = @(x) costoRuta(x(:,1),aBus,nBuses);
+%fCost = @(x) costoRuta(x(:,1),aBus,nBuses);
 calcCost = cellfun(fCost, matPer);%Calcula el costo de cada permutación
 cost = min(calcCost);%Elige el menor costo
 minRoute = matPer{calcCost == cost,1};%Elige el ruteo asociado al menor costo

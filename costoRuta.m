@@ -1,14 +1,6 @@
 %Costo de la ruta en distnacia
-function rutaCost = costoRuta(ruta,aBus,nBuses)
+function rutaCost = costoRuta(ruta,aBus,nBuses,dB,dC)
 
-
-load dis.mat d %Carga distancias d(matrix)
-
-% matriz de distancia de los buses a las ciudades.
-dB = d(1:nBuses,nBuses+1:length(d(1,:))); 
-
-% distancia de ciudad a ciudad y el deposito.
-dC = d(nBuses+1:length(d(:,1)),nBuses+1:length(d(1,:))); 
 
 %Suma de la distancia entre nodos de la ruta, bus al primer nodo de la
     %ruta, depósito a último nodo de la ruta

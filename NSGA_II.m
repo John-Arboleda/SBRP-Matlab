@@ -9,7 +9,9 @@ tic
 [evaluatedInitPop] = NSGA_Evaluate(initPop, N_indivs, Buses);
 
 %Ranking de los índividuos de menor costo
-[rankedPop] = NSGA_Rank(evaluatedInitPop);
+[initRankedPop] = NSGA_Rank(evaluatedInitPop);
+
+rankedPop = initRankedPop;
 
 fprintf( 'Parent generation 0\n');
 
