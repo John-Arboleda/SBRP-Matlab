@@ -20,13 +20,14 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
     % distancia de ciudad a ciudad y el deposito.
     dC = d(Buses+1:length(d(:,1)),Buses+1:length(d(1,:))); 
 
-
     %Inicializa población evaluada
     evaluatedInitPop = InitPop;
 
     for j = 1:N_indivs % Para cada inididuos
-        %Mejora el ruteo y calcula costo de ruta
+        %Ruteo por bus de cada individuo
         evaluatedInitPop(j).Individuo = totalRouting(evaluatedInitPop(j).Individuo,Buses,dB,dC);
+        %Calcula costo de ruta
+        evaluatedInitPop(j).Individuo = totalCost(evaluatedInitPop(j).Individuo,Buses,dB,dC);
         %Costo de cada individuo
         evaluatedInitPop(j).ObjVals(1) = sum([evaluatedInitPop(j).Individuo.Costo]);
 %         evaluatedInitPop(j).CostoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
@@ -43,13 +44,21 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
     
     function newRouting = totalRouting(aIndiv, nBuses, DB, DC)
         %Mejora el ruteo de cada bus de un individuo
-        %Cálcula costo de ruta
-        %Retorna individuo actualizado con costos y ruteo
         for m = 1:nBuses
-            %aIndiv(m).Ruta = Routing(aIndiv(m).Ruta,m,nBuses);
-            aIndiv(m).Costo = costoRuta(aIndiv(m).Ruta,m,nBuses,DB,DC);
+            aIndiv(m).Ruta = Routing(aIndiv(m).Ruta,m,DB,DC);
         end
         newRouting = aIndiv;
+        
+    end
+    
+    function newCost = totalCost(aIndiv, nBuses, DB, DC)
+        %Cálcula costo de ruta
+        %Retorna individuo actualizado con costos de cada ruta
+        for m = 1:nBuses
+            %aIndiv(m).Ruta = Routing(aIndiv(m).Ruta,m,nBuses);
+            aIndiv(m).Costo = costoRuta(aIndiv(m).Ruta(:,1),m,DB,DC);
+        end
+        newCost = aIndiv;
     end
 
 end

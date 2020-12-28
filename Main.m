@@ -2,7 +2,7 @@ clc
 clear
 
 
-N_gen = 40;%Número de generaciones
+N_gen = 20;%Número de generaciones
 N_indivs = 128;%Número de inidividuos
 Buses = 12;%Número de buses
 Capacity = 48;%Capacidad de los buses
