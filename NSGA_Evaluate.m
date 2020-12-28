@@ -28,13 +28,17 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
         %Mejora el ruteo y calcula costo de ruta
         evaluatedInitPop(j).Individuo = totalRouting(evaluatedInitPop(j).Individuo,Buses,dB,dC);
         %Costo de cada individuo
-        evaluatedInitPop(j).CostoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
-        %Variación distancia de recorrido
-        evaluatedInitPop(j).VarDistance = std([evaluatedInitPop(j).Individuo.Costo]);
-        %Variación número de estudiantes
-        evaluatedInitPop(j).VarStudents = std([evaluatedInitPop(j).Individuo.Ocupacion]);
-        %Variación número de paradas
-        evaluatedInitPop(j).VarNodes = std(cellfun(@length, {evaluatedInitPop(j).Individuo.Ruta}));
+        evaluatedInitPop(j).ObjVals(1) = sum([evaluatedInitPop(j).Individuo.Costo]);
+%         evaluatedInitPop(j).CostoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
+%         %Variación distancia de recorrido
+        evaluatedInitPop(j).ObjVals(2) = std([evaluatedInitPop(j).Individuo.Costo]);
+%         evaluatedInitPop(j).VarDistance = std([evaluatedInitPop(j).Individuo.Costo]);
+%         %Variación número de estudiantes
+        evaluatedInitPop(j).ObjVals(3) = std([evaluatedInitPop(j).Individuo.Ocupacion]);
+%         evaluatedInitPop(j).VarStudents = std([evaluatedInitPop(j).Individuo.Ocupacion]);
+%         %Variación número de paradas
+        evaluatedInitPop(j).ObjVals(4) = std(cellfun(@length, {evaluatedInitPop(j).Individuo.Ruta}));
+%         evaluatedInitPop(j).VarNodes = std(cellfun(@length, {evaluatedInitPop(j).Individuo.Ruta}));
     end
     
     function newRouting = totalRouting(aIndiv, nBuses, DB, DC)

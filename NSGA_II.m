@@ -9,7 +9,7 @@ tic
 [evaluatedInitPop] = NSGA_Evaluate(initPop, N_indivs, Buses);
 
 %Ranking de los índividuos de menor costo
-[initRankedPop] = NSGA_Rank(evaluatedInitPop);
+[initRankedPop] = NSGA_Rank(evaluatedInitPop, N_indivs);
 
 rankedPop = initRankedPop;
 
@@ -25,7 +25,7 @@ for n = 1:N_gen
   
     [evaluatedChildPop] = NSGA_Evaluate(childPop, N_indivs, Buses);
     
-    [rankedParentChild] = NSGA_Rank([rankedPop, evaluatedChildPop]);
+    [rankedParentChild] = NSGA_Rank([rankedPop, evaluatedChildPop], N_indivs*2);
     
     [rankedPop] = rankedParentChild(1:N_indivs);
     
@@ -35,7 +35,7 @@ for n = 1:N_gen
 end
 
 individuo_elite = rankedPop(1).Individuo;
-Obj = rankedPop(1).CostoTotal
+%Obj = rankedPop(1).CostoTotal
 
 toc
 end
