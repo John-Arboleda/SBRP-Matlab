@@ -44,11 +44,12 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
     
     function newRouting = totalRouting(aIndiv, nBuses, DB, DC)
         %Mejora el ruteo de cada bus de un individuo
-        for m = 1:nBuses
-            aIndiv(m).Ruta = Routing(aIndiv(m).Ruta,m,DB,DC);
-        end
         newRouting = aIndiv;
-        
+        for m = 1:nBuses
+            if ~isempty(newRouting(m).Ruta)
+                newRouting(m).Ruta = Routing(newRouting(m).Ruta,m,DB,DC);
+            end
+        end   
     end
     
     function newCost = totalCost(aIndiv, nBuses, DB, DC)
@@ -56,7 +57,9 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
         %Retorna individuo actualizado con costos de cada ruta
         for m = 1:nBuses
             %aIndiv(m).Ruta = Routing(aIndiv(m).Ruta,m,nBuses);
-            aIndiv(m).Costo = costoRuta(aIndiv(m).Ruta(:,1),m,DB,DC);
+            if ~isempty(aIndiv(m).Ruta)
+                aIndiv(m).Costo = costoRuta(aIndiv(m).Ruta(:,1),m,DB,DC);
+            end
         end
         newCost = aIndiv;
     end

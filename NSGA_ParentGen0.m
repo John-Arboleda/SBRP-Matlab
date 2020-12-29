@@ -21,26 +21,13 @@ end
 %Inicializa estructura de la población inicial
 initPop = makeEmptyPop(N_indivs, Buses);
 
+%Todos los nodos del problema
 nodoPorAsignar = Problem(2:end,[1,4]);
 
-%Asigna nodos a buses de forma aleatoria
 for j = 1:N_indivs %Para cada inidividuo
-    %Organiza los nodos del problema en un array aleatorio
-    %nodoPorAsignar = nodoPorAsignar(randperm(length(nodoPorAsignar)),:);
+    %Asigna nodos a buses de forma aleatoria
     initPop(j).Individuo ...
         = chooseNodes(initPop(j).Individuo, nodoPorAsignar, Buses, Capacity);
-    
-%     for i = 1:length(nodoPorAsignar) %Para cada nodo del problema
-%         if nodoPorAsignar(i) ~= 1 %diferente del depósito
-%             demNodo = nodoPorAsignar(i,2); %Buscar la demanda del nodo
-%             %Aleatoriamente elege un bus que tenga capacidad disponible
-%             busElegido = chooseBus(initPop(j).Individuo, Buses, demNodo, Capacity);
-%             %Asigne el nodo al bus elegido
-%             initPop(j).Individuo = asignarNodo(initPop(j).Individuo,busElegido,nodoPorAsignar(i),demNodo);
-%         end
-%     end
-    %Inicializa costo total de la ruta
-    %initPop(j).costoTotal;
 end
 
         
