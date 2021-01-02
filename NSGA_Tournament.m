@@ -1,7 +1,7 @@
 
-function [Pars, Tourn] = NSGA_Tournament( Ranking, nmbOfPairs)
-
-nmbOfIndivs = length( Ranking);
+function [Pars, Tourn] = NSGA_Tournament( Ranking, nmbOfPairs, pX)
+% selected individuals
+nmbOfIndivs = length(Ranking)*pX;
 % indices of all pairs of identical individuals
 DiagIdx = 1:(nmbOfIndivs + 1):nmbOfIndivs^2;
 % indices of all pairs of distinct individuals

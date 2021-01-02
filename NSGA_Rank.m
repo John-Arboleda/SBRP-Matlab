@@ -1,18 +1,29 @@
-%Ordena los individuos según su costo
-function [rankedPop] = NSGA_Rank(evaluatedPop, N_indivs)
+%Ranking de los individuos de acuerdo al número de restricciones que
+%viola, frontera de pareto y crowd distance
+function [rankedPop] = NSGA_Rank(evaluatedPop, N_indivs, Capacity)
+
+rankedPop = evaluatedPop;
+
+%
+for in = 1:N_indivs
+    allOcc = [rankedPop(in).Individuo.Ocupacion];
+    logCap = allOcc > Capacity;
+    rankedPop(in).Viols = sum(allOcc(logCap) - Capacity);
+end
+
+
+
 
 allObjVals = vertcat(evaluatedPop.ObjVals);
 Dominated = {[]};
 NmbOfDominating = zeros(N_indivs,1);
-
-
 
 % Pareto-optimal fronts
 Front = {[]};
 % number of Pareto-optimal front for each individual; 2nd highest priority sorting key
 
 
-rankedPop = evaluatedPop;
+
 [rankedPop.N_Front] = deal([]);
 [rankedPop.CrowdDist] = deal(0);
 
@@ -77,7 +88,7 @@ end
 
 %Es necesario convertir la estructura a tabla para ordenar por costoTotal
 rankedPop = struct2table(rankedPop);
-rankedPop = sortrows(rankedPop,{'N_Front','CrowdDist'});
+rankedPop = sortrows(rankedPop,{'Viols','N_Front','CrowdDist'});
 rankedPop = table2struct(rankedPop)';
 
 end
