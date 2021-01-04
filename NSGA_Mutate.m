@@ -27,8 +27,7 @@ MutPop = Pop;
 %Indices de los individuos seleccionados a mutar
 selMut = find(rand(1,N_indivs) < pM);
 
-for i = 1:length(selMut)
-    m = selMut(i);
+for m = selMut
     %Extrae nodos más alejados de cada individuo seleccionado para mutar
     [MutPop(m).Individuo,maxNodes] = extrNodes(MutPop(m).Individuo,Buses,dB);
     %Reasigna los nodos de acuerdo a su cercanía a cada bus
