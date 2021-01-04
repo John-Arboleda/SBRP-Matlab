@@ -2,7 +2,7 @@
 clear
 
 
-N_gen = 80;%Número de generaciones
+N_gen = 40;%Número de generaciones
 N_indivs = 32;%Número de inidividuos
 Buses = 12;%Número de buses
 Capacity = 48;%Capacidad de los buses

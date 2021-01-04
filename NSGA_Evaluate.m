@@ -32,7 +32,7 @@ function [evaluatedInitPop] = NSGA_Evaluate(InitPop, N_indivs, Buses)
         evaluatedInitPop(j).ObjVals(1) = sum([evaluatedInitPop(j).Individuo.Costo]);
 %         evaluatedInitPop(j).CostoTotal = sum([evaluatedInitPop(j).Individuo.Costo]);
 %         %Variación distancia de recorrido
-        evaluatedInitPop(j).ObjVals(2) = std([evaluatedInitPop(j).Individuo.Costo]);
+        evaluatedInitPop(j).ObjVals(2) = max([evaluatedInitPop(j).Individuo.Costo]);
 %         evaluatedInitPop(j).VarDistance = std([evaluatedInitPop(j).Individuo.Costo]);
 %         %Variación número de estudiantes
         evaluatedInitPop(j).ObjVals(3) = std([evaluatedInitPop(j).Individuo.Ocupacion]);
